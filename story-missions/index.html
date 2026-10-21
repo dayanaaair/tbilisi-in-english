@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fbf7f1" />
+  <meta name="description" content="Daily story missions and useful English for the Tbilisi speaking trip." />
+  <title>Tbilisi English Trip</title>
+  <style>
+    :root {
+      --paper: #fbf7f1;
+      --ink: #373340;
+      --muted: #746e78;
+      --lavender: #d9d1ec;
+      --lavender-deep: #75698d;
+      --sage: #d7e5d4;
+      --peach: #f4d2bd;
+      --blue: #cee2e9;
+      --pink: #edd3dc;
+      --white: rgba(255, 255, 255, .84);
+      --line: rgba(73, 65, 78, .12);
+      --shadow: 0 18px 50px rgba(78, 67, 89, .10);
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 95% 3%, rgba(217, 209, 236, .7) 0 105px, transparent 106px),
+        radial-gradient(circle at 2% 98%, rgba(244, 210, 189, .55) 0 120px, transparent 121px),
+        var(--paper);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+    }
+
+    button, select { font: inherit; }
+    button { color: inherit; }
+    .shell { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+
+    header { padding: 34px 0 18px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 12px; border-radius: 999px; background: var(--sage);
+      font-weight: 750; font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #7a9b74; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; }
+    h1 { max-width: 780px; margin: 18px 0 10px; font-size: clamp(42px, 7vw, 76px); line-height: .97; letter-spacing: -.04em; }
+    .lead { max-width: 620px; margin: 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
+
+    .controls {
+      margin: 28px 0 18px; padding: 18px; border: 1px solid var(--line); border-radius: 24px;
+      background: rgba(255,255,255,.7); box-shadow: var(--shadow); backdrop-filter: blur(12px);
+      display: grid; grid-template-columns: 1fr 1.5fr; gap: 18px;
+    }
+    .field label { display: block; margin: 0 0 8px; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    select {
+      width: 100%; min-height: 48px; padding: 0 42px 0 15px; border: 1px solid var(--line); border-radius: 15px;
+      color: var(--ink); background: #fff; cursor: pointer; outline: none;
+    }
+    select:focus { box-shadow: 0 0 0 4px rgba(117,105,141,.13); border-color: var(--lavender-deep); }
+    .date-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; }
+    .date-tab {
+      min-height: 48px; border: 0; border-radius: 15px; background: #fff; cursor: pointer;
+      font-weight: 800; transition: transform .18s ease, background .18s ease;
+    }
+    .date-tab:hover { transform: translateY(-2px); }
+    .date-tab.active { background: var(--lavender); }
+    .date-tab small { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; font-weight: 700; }
+
+    main { padding-bottom: 80px; }
+    .day-head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin: 34px 0 14px; }
+    .day-head h2 { margin: 0; font-size: clamp(30px, 5vw, 46px); line-height: 1; }
+    .day-head p { margin: 7px 0 0; color: var(--muted); }
+    .day-pill { flex: none; padding: 9px 13px; border-radius: 999px; background: var(--blue); font-size: 12px; font-weight: 800; }
+
+    .mission-section { margin-top: 20px; }
+    .section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 11px; font-size: 12px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; }
+    .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .mission-card {
+      position: relative; overflow: hidden; min-height: 252px; padding: 22px; border: 1px solid var(--line);
+      border-radius: var(--radius); background: var(--white); box-shadow: 0 12px 30px rgba(78,67,89,.07);
+      transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .mission-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .mission-card.mine { outline: 3px solid rgba(117,105,141,.36); background: #fff; }
+    .mission-card.dimmed { opacity: .43; }
+    .mission-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 8px; background: var(--accent, var(--lavender)); }
+    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .team { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .mine-badge { padding: 5px 8px; border-radius: 999px; background: var(--sage); font-size: 10px; font-weight: 850; text-transform: uppercase; }
+    .mission-card h3 { margin: 18px 0 12px; font-size: 23px; line-height: 1.05; letter-spacing: -.02em; }
+    .roles { display: grid; gap: 9px; }
+    .role { padding: 10px 11px; border-radius: 13px; background: rgba(255,255,255,.75); font-size: 13px; line-height: 1.4; }
+    .role strong { display: block; margin-bottom: 2px; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+    .role.yours { background: var(--sage); }
+    .empty-state { padding: 30px; border-radius: var(--radius); background: var(--white); color: var(--muted); border: 1px dashed var(--line); }
+
+    .guide-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 18px; margin-top: 36px; }
+    .guide, .spinner-panel { border-radius: 32px; padding: 26px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+    .guide { background: linear-gradient(145deg, rgba(215,229,212,.92), rgba(255,255,255,.84)); }
+    .guide h2, .spinner-panel h2 { margin: 0 0 9px; font-size: 31px; }
+    .guide-intro, .spinner-intro { margin: 0 0 20px; color: var(--muted); line-height: 1.5; }
+    .steps { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; counter-reset: steps; }
+    .steps li { counter-increment: steps; display: grid; grid-template-columns: 32px 1fr; gap: 10px; align-items: start; line-height: 1.45; font-size: 14px; }
+    .steps li::before { content: counter(steps); width: 30px; height: 30px; display: grid; place-items: center; border-radius: 50%; background: #fff; font-size: 12px; font-weight: 850; }
+
+    .spinner-panel { background: linear-gradient(145deg, rgba(217,209,236,.92), rgba(255,255,255,.84)); }
+    .spin-area { display: grid; grid-template-columns: 152px 1fr; gap: 20px; align-items: center; }
+    .wheel-wrap { position: relative; width: 152px; height: 152px; }
+    .pointer { position: absolute; z-index: 2; top: -5px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 11px solid transparent; border-right: 11px solid transparent; border-top: 24px solid var(--ink); }
+    .wheel {
+      width: 152px; height: 152px; border-radius: 50%; border: 7px solid rgba(255,255,255,.9);
+      background: conic-gradient(var(--peach) 0 60deg, var(--blue) 60deg 120deg, var(--sage) 120deg 180deg, var(--pink) 180deg 240deg, #f5e7b8 240deg 300deg, var(--lavender) 300deg 360deg);
+      box-shadow: 0 14px 28px rgba(75,62,89,.15); transition: transform 1.2s cubic-bezier(.17,.67,.2,1);
+      display: grid; place-items: center;
+    }
+    .wheel::after { content: "SPIN"; width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: #fff; font-size: 11px; font-weight: 900; letter-spacing: .08em; box-shadow: 0 3px 12px rgba(75,62,89,.18); }
+    .spin-button { width: 100%; margin-top: 12px; min-height: 44px; border: 0; border-radius: 14px; background: var(--ink); color: #fff; font-weight: 850; cursor: pointer; }
+    .spin-button:hover { background: #514a5d; }
+    .spin-button:disabled { opacity: .65; cursor: wait; }
+    .phrase-card { min-height: 152px; padding: 18px; border-radius: 20px; background: rgba(255,255,255,.76); display: flex; flex-direction: column; justify-content: center; }
+    .phrase-label { color: var(--lavender-deep); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .phrase { margin: 8px 0; font-family: Georgia, serif; font-size: 22px; line-height: 1.15; }
+    .phrase-translation { margin: 0 0 7px; color: var(--lavender-deep); font-size: 12px; font-weight: 750; line-height: 1.4; }
+    .phrase-use { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+    .small-note { margin: 16px 0 0; color: var(--muted); font-size: 11px; line-height: 1.4; }
+
+    .site-nav-wrap { position: sticky; top: 0; z-index: 20; padding: 10px 0; background: rgba(251,247,241,.84); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line); }
+    .site-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .site-mark { font-family: Georgia, serif; font-size: 16px; font-weight: 700; white-space: nowrap; }
+    .view-tabs { display: flex; gap: 6px; padding: 5px; border-radius: 16px; background: rgba(255,255,255,.8); border: 1px solid var(--line); }
+    .view-tab { min-height: 38px; padding: 0 17px; border: 0; border-radius: 12px; background: transparent; cursor: pointer; font-size: 13px; font-weight: 850; }
+    .view-tab.active { background: var(--lavender); }
+
+    .vocab-view { padding: 38px 0 80px; }
+    .vocab-hero { padding: 26px 0 22px; }
+    .vocab-hero h1 { max-width: 820px; }
+    .vocab-toolbar { display: grid; grid-template-columns: 1.6fr .65fr; gap: 16px; margin: 20px 0 30px; }
+    .filter-box { padding: 14px; border: 1px solid var(--line); border-radius: 22px; background: rgba(255,255,255,.72); box-shadow: var(--shadow); }
+    .filter-label { display: block; margin: 0 0 9px; color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .category-tabs { display: flex; flex-wrap: wrap; gap: 7px; }
+    .category-tab, .level-tab { min-height: 40px; padding: 0 13px; border: 0; border-radius: 13px; background: #fff; cursor: pointer; font-size: 12px; font-weight: 800; }
+    .category-tab.active { background: var(--blue); }
+    .level-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .level-tab.active { background: var(--sage); }
+    .vocab-summary { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 16px; }
+    .vocab-summary h2 { margin: 0; font-size: clamp(30px, 5vw, 45px); }
+    .vocab-summary p { margin: 7px 0 0; color: var(--muted); }
+    .vocab-count { padding: 8px 11px; border-radius: 999px; background: var(--peach); font-size: 11px; font-weight: 850; white-space: nowrap; }
+    .vocab-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
+    .vocab-card { position: relative; overflow: hidden; padding: 22px; border: 1px solid var(--line); border-radius: 24px; background: var(--white); box-shadow: 0 11px 28px rgba(78,67,89,.07); }
+    .vocab-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 7px; background: var(--card-accent, var(--lavender)); }
+    .vocab-meta { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 10px; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .vocab-card h3 { margin: 14px 0 9px; font-size: 23px; line-height: 1.1; }
+    .vocab-use { margin: 0 0 14px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .example { padding: 13px 14px; border-radius: 15px; background: rgba(255,255,255,.8); font-size: 13px; line-height: 1.5; }
+    .example strong { display: block; margin-bottom: 3px; color: var(--lavender-deep); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .vocab-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 28px; }
+    .vocab-tip { padding: 17px; border-radius: 19px; background: rgba(255,255,255,.62); border: 1px solid var(--line); font-size: 13px; line-height: 1.45; }
+    .vocab-tip strong { display: block; margin-bottom: 5px; }
+
+    .progress-view { padding: 38px 0 80px; }
+    .progress-hero { padding: 26px 0 22px; }
+    .progress-hero h1 { max-width: 820px; }
+    .progress-dashboard {
+      display: grid; grid-template-columns: 1.35fr .65fr; gap: 16px; margin: 18px 0 16px;
+    }
+    .progress-main, .progress-stat {
+      border: 1px solid var(--line); box-shadow: var(--shadow); background: rgba(255,255,255,.76);
+    }
+    .progress-main { padding: 24px; border-radius: 28px; }
+    .progress-top { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .progress-number { margin: 0; font-family: Georgia, serif; font-size: clamp(42px, 7vw, 68px); line-height: 1; }
+    .progress-label { margin: 8px 0 0; color: var(--muted); line-height: 1.45; }
+    .progress-track { height: 13px; margin-top: 22px; overflow: hidden; border-radius: 999px; background: #ebe6ed; }
+    .progress-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #aebfd8, #9cb89a, #d7adbe); transition: width .3s ease; }
+    .progress-side { display: grid; gap: 12px; }
+    .progress-stat { display: flex; flex-direction: column; justify-content: center; padding: 19px; border-radius: 22px; }
+    .progress-stat strong { font-family: Georgia, serif; font-size: 30px; }
+    .progress-stat span { margin-top: 3px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .journey-note { margin: 0 0 28px; padding: 14px 17px; border-radius: 18px; background: var(--sage); font-size: 13px; line-height: 1.5; }
+    .passport-groups { display: grid; gap: 18px; }
+    .passport-group { padding: 22px; border: 1px solid var(--line); border-radius: 28px; background: rgba(255,255,255,.72); box-shadow: 0 12px 30px rgba(78,67,89,.06); }
+    .passport-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 15px; }
+    .passport-title { display: flex; align-items: center; gap: 10px; }
+    .passport-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--passport-accent); }
+    .passport-head h2 { margin: 0; font-size: 27px; }
+    .passport-count { padding: 7px 10px; border-radius: 999px; background: var(--passport-soft); font-size: 11px; font-weight: 850; white-space: nowrap; }
+    .passport-actions { display: grid; gap: 9px; }
+    .passport-action { display: grid; grid-template-columns: minmax(230px, 1fr) minmax(360px, .9fr); gap: 18px; align-items: center; padding: 13px 14px; border-radius: 17px; background: rgba(255,255,255,.78); }
+    .action-copy { font-size: 13px; line-height: 1.4; }
+    .date-checks { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    .date-check { position: relative; cursor: pointer; }
+    .date-check input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+    .date-box { display: grid; place-items: center; min-height: 38px; padding: 4px; border: 1px solid var(--line); border-radius: 11px; background: #fff; color: var(--muted); font-size: 9px; font-weight: 900; line-height: 1.05; text-align: center; transition: transform .15s ease, background .15s ease, color .15s ease; }
+    .date-box::before { content: ""; width: 11px; height: 11px; margin-bottom: 3px; border: 1.5px solid #b9b2bd; border-radius: 4px; background: #fff; }
+    .date-check:hover .date-box { transform: translateY(-1px); }
+    .date-check input:focus-visible + .date-box { outline: 3px solid rgba(117,105,141,.24); outline-offset: 2px; }
+    .date-check input:checked + .date-box { background: var(--passport-soft); color: var(--ink); border-color: transparent; }
+    .date-check input:checked + .date-box::before { content: "✓"; display: grid; place-items: center; color: #fff; border-color: var(--passport-accent); background: var(--passport-accent); font-size: 9px; }
+
+    footer { padding: 28px 0 42px; color: var(--muted); font-family: Georgia, serif; text-align: center; font-size: 13px; }
+    .hidden { display: none !important; }
+
+    @media (max-width: 820px) {
+      .cards { grid-template-columns: 1fr 1fr; }
+      .guide-grid { grid-template-columns: 1fr; }
+      .vocab-toolbar { grid-template-columns: 1fr; }
+      .progress-dashboard { grid-template-columns: 1fr; }
+      .progress-side { grid-template-columns: 1fr 1fr; }
+      .passport-action { grid-template-columns: 1fr; gap: 10px; }
+    }
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 22px, 520px); }
+      header { padding-top: 24px; }
+      h1 { font-size: 46px; }
+      .lead { font-size: 15px; }
+      .controls { grid-template-columns: 1fr; padding: 13px; }
+      .date-tabs { gap: 4px; }
+      .date-tab { padding: 5px 2px; font-size: 12px; }
+      .day-head { align-items: start; }
+      .cards { grid-template-columns: 1fr; }
+      .mission-card { min-height: auto; }
+      .spin-area { grid-template-columns: 1fr; justify-items: center; }
+      .phrase-card { width: 100%; }
+      .guide, .spinner-panel { padding: 21px; border-radius: 26px; }
+      .site-nav { align-items: stretch; flex-direction: column; gap: 7px; }
+      .site-mark { text-align: center; font-size: 13px; }
+      .view-tabs { width: 100%; }
+      .view-tab { flex: 1; padding: 0 8px; }
+      .vocab-view { padding-top: 16px; }
+      .vocab-toolbar { margin-top: 12px; }
+      .vocab-grid, .vocab-guide { grid-template-columns: 1fr; }
+      .vocab-summary { align-items: start; }
+      .vocab-card { padding: 19px; }
+      .progress-view { padding-top: 16px; }
+      .progress-main, .passport-group { padding: 18px; }
+      .progress-side { grid-template-columns: 1fr 1fr; }
+      .passport-head { align-items: flex-start; }
+      .passport-head h2 { font-size: 23px; }
+      .passport-action { padding: 12px; }
+      .date-checks { gap: 4px; }
+      .date-box { min-height: 40px; font-size: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav-wrap" aria-label="Main sections">
+    <div class="site-nav shell">
+      <span class="site-mark">Tbilisi English Trip</span>
+      <div class="view-tabs">
+        <button class="view-tab active" type="button" data-view="missions">Missions</button>
+        <button class="view-tab" type="button" data-view="vocabulary">Useful Vocabulary</button>
+        <button class="view-tab" type="button" data-view="progress">Progress</button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="shell missions-only">
+    <span class="eyebrow">Tbilisi speaking trip</span>
+    <h1>Your story mission for today.</h1>
+    <p class="lead">Choose your name and date. You will see exactly what to prepare, when to speak and which part is yours.</p>
+
+    <section class="controls" aria-label="Mission filters">
+      <div class="field">
+        <label for="studentSelect">Who are you?</label>
+        <select id="studentSelect">
+          <option value="all">Show the whole group</option>
+          <option value="Nuri">Nuri</option>
+          <option value="Alina Nersesyan">Alina Nersesyan</option>
+          <option value="Alina Davtyan">Alina Davtyan</option>
+          <option value="Katya">Katya</option>
+          <option value="Arevik">Arevik</option>
+          <option value="Angelina">Angelina</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Choose a day</label>
+        <div class="date-tabs" id="dateTabs"></div>
+      </div>
+    </section>
+  </header>
+
+  <main class="shell missions-only">
+    <section aria-live="polite">
+      <div class="day-head">
+        <div>
+          <h2 id="dayTitle">4 November</h2>
+          <p id="daySummary">Prepare your first mini-story.</p>
+        </div>
+        <span class="day-pill" id="dayPill">Preparation day</span>
+      </div>
+
+      <div class="mission-section" id="presentSection">
+        <div class="section-label">Present today</div>
+        <div class="cards" id="presentCards"></div>
+      </div>
+
+      <div class="mission-section" id="prepareSection">
+        <div class="section-label">Prepare for tomorrow</div>
+        <div class="cards" id="prepareCards"></div>
+      </div>
+    </section>
+
+    <section class="guide-grid">
+      <article class="guide">
+        <h2>How to prepare</h2>
+        <p class="guide-intro">This is a tiny story, not a school presentation. Keep it clear, personal and easy to tell.</p>
+        <ol class="steps">
+          <li><span><strong>Set a 20-25 minute timer.</strong> Stop when the timer ends.</span></li>
+          <li><span>Keep the story <strong>short and focused</strong>. Share the essentials and one or two interesting facts.</span></li>
+          <li><span>Split the story by the roles shown on your mission card.</span></li>
+          <li><span>Practise once together. Each person must speak her own part.</span></li>
+          <li><span>Do not read a full text from your phone. Look up and tell the story.</span></li>
+          <li><span>If you use advanced vocabulary, send a few translations to the group chat in advance. Keep the list short.</span></li>
+          <li><span>Speak only English. You may silently check a translation in the chat, but do not explain it in Russian.</span></li>
+          <li><span>Finish in five minutes and be ready for one group question.</span></li>
+        </ol>
+      </article>
+
+      <article class="spinner-panel">
+        <h2>Spin for useful English</h2>
+        <p class="spinner-intro">Build a vivid mini-story with useful vocabulary for places, history, architecture and atmosphere.</p>
+        <div class="spin-area">
+          <div>
+            <div class="wheel-wrap" aria-hidden="true">
+              <div class="pointer"></div>
+              <div class="wheel" id="wheel"></div>
+            </div>
+            <button class="spin-button" id="spinButton" type="button">Spin a phrase</button>
+          </div>
+          <div class="phrase-card" id="phraseCard" aria-live="polite">
+            <span class="phrase-label">Your phrase</span>
+            <p class="phrase">Ready when you are.</p>
+            <p class="phrase-translation">Нажмите на кнопку, чтобы получить выражение.</p>
+            <p class="phrase-use">More than 100 expressions. No repeats until you complete the full set.</p>
+          </div>
+        </div>
+        <p class="small-note">Save the expressions that fit your topic. You do not need to use every phrase you spin.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="shell missions-only">Speak to connect, not to be perfect.</footer>
+
+  <section class="vocab-view shell hidden" id="vocabularyView">
+    <div class="vocab-hero">
+      <span class="eyebrow">Bravery passport companion</span>
+      <h1>Useful Vocabulary</h1>
+      <p class="lead">Choose a real-life category and your level. Learn complete phrases, see when to use them and borrow the example for your own conversation.</p>
+    </div>
+
+    <div class="vocab-toolbar">
+      <div class="filter-box">
+        <span class="filter-label">Choose a category</span>
+        <div class="category-tabs" id="categoryTabs"></div>
+      </div>
+      <div class="filter-box">
+        <span class="filter-label">Choose your level</span>
+        <div class="level-tabs" id="levelTabs">
+          <button class="level-tab active" type="button" data-level="Intermediate">Intermediate</button>
+          <button class="level-tab" type="button" data-level="Advanced">Advanced</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="vocab-guide">
+      <div class="vocab-tip"><strong>Choose, do not memorise.</strong>Pick two or three phrases that match the situation you expect today.</div>
+      <div class="vocab-tip"><strong>Make it personal.</strong>Replace the details in the example with your real order, route, opinion or problem.</div>
+      <div class="vocab-tip"><strong>Keep the conversation moving.</strong>If the exact phrase disappears, simplify it and continue speaking.</div>
+    </div>
+
+    <div class="vocab-summary">
+      <div>
+        <h2 id="vocabTitle">Eat & Order</h2>
+        <p id="vocabSubtitle">Useful English for cafes, restaurants and shared meals.</p>
+      </div>
+      <span class="vocab-count" id="vocabCount">8 phrases</span>
+    </div>
+    <div class="vocab-grid" id="vocabGrid" aria-live="polite"></div>
+  </section>
+
+  <section class="progress-view shell hidden" id="progressView">
+    <div class="progress-hero">
+      <span class="eyebrow">Your bravery passport</span>
+      <h1>Small actions. Real progress.</h1>
+      <p class="lead">Tick the date whenever you complete an action in real life. Your progress stays saved on this device.</p>
+    </div>
+
+    <div class="progress-dashboard" aria-live="polite">
+      <div class="progress-main">
+        <div class="progress-top">
+          <div>
+            <p class="progress-number" id="progressPercent">0%</p>
+            <p class="progress-label" id="progressActions">0 of 25 actions completed</p>
+          </div>
+          <span class="day-pill">NOV 5—9</span>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="progress-side">
+        <div class="progress-stat"><strong id="braveMoments">0</strong><span>brave moments in total</span></div>
+        <div class="progress-stat"><strong id="categoriesComplete">0/5</strong><span>categories explored</span></div>
+      </div>
+    </div>
+
+    <p class="journey-note"><strong>This is your journey, not a score.</strong> One honest action counts. You do not need to complete every box.</p>
+    <div class="passport-groups" id="passportGroups"></div>
+  </section>
+
+  <script>
+    const missions = {
+      "4": {
+        title: "4 November", summary: "Prepare your first mini-story in Nalchik.", pill: "Preparation day", present: [],
+        prepare: [
+          { topic: "Freedom Square & St George Monument", team: ["Nuri", "Alina Nersesyan"], roles: {
+            "Nuri": "Describe what the group will see.", "Alina Nersesyan": "Share the history and meaning of the square and monument."
+          }},
+          { topic: "Holy Trinity Cathedral", team: ["Alina Davtyan", "Katya"], roles: {
+            "Alina Davtyan": "Describe the place and what visitors notice.", "Katya": "Share the most important points from its history."
+          }},
+          { topic: "Metekhi & King Vakhtang Gorgasali", team: ["Arevik", "Angelina"], roles: {
+            "Arevik": "Introduce the place and the monument.", "Angelina": "Explain the history and its connection to Tbilisi."
+          }}
+        ]
+      },
+      "5": {
+        title: "5 November", summary: "Tell your first stories, then prepare the next set.", pill: "Arrival in Tbilisi",
+        presentFrom: "4", prepare: [
+          { topic: "Rike Park & Bridge of Peace", team: ["Nuri", "Angelina"], roles: {
+            "Nuri": "Describe the park and bridge in simple, clear language.", "Angelina": "Explain why the bridge appeared and what makes it interesting."
+          }},
+          { topic: "Botanical Garden & Narikala", team: ["Katya", "Arevik"], roles: {
+            "Katya": "Introduce the Botanical Garden.", "Arevik": "Tell the story of Narikala and connect it to this part of the city."
+          }},
+          { topic: "Meidan & Old Trading Tbilisi", team: ["Alina Nersesyan", "Alina Davtyan"], roles: {
+            "Alina Nersesyan": "Give the historical context of Meidan and trade.", "Alina Davtyan": "Describe what the area is like today."
+          }}
+        ]
+      },
+      "6": {
+        title: "6 November", summary: "Present in the city and prepare tomorrow's stories.", pill: "City story day",
+        presentFrom: "5", prepare: [
+          { topic: "9 April Park & Giorgi Leonidze", team: ["Nuri", "Arevik"], roles: {
+            "Nuri": "Describe the park and its atmosphere.", "Arevik": "Explain the name and the place's connection to Giorgi Leonidze."
+          }},
+          { topic: "Orbeliani Square", team: ["Angelina", "Alina Davtyan"], roles: {
+            "Alina Davtyan": "Describe the modern square.", "Angelina": "Tell the story behind it."
+          }},
+          { topic: "Gabriadze Theatre, Clock Tower & Anchiskhati", team: ["Katya", "Alina Nersesyan"], roles: {
+            "Katya": "Introduce the theatre and the clock tower.", "Alina Nersesyan": "Tell the group about Gabriadze and Anchiskhati."
+          }}
+        ]
+      },
+      "7": {
+        title: "7 November", summary: "Present today's stories and prepare the final two as trios.", pill: "Old Tbilisi walk",
+        presentFrom: "6", prepare: [
+          { topic: "Deda Ena Park & the Georgian Language", team: ["Nuri", "Alina Davtyan", "Katya"], roles: {
+            "Nuri": "Explain the name and describe the park.", "Alina Davtyan": "Tell the story of protecting the Georgian language.", "Katya": "Explain the link between language and identity."
+          }},
+          { topic: "Dry Bridge & the Antique Market", team: ["Arevik", "Alina Nersesyan", "Angelina"], roles: {
+            "Arevik": "Describe what people can find at the market.", "Alina Nersesyan": "Talk about the stories old objects can carry.", "Angelina": "Share the history of the market itself."
+          }}
+        ]
+      },
+      "8": {
+        title: "8 November", summary: "Share the final stories, explore and enjoy the city.", pill: "Final story day",
+        presentFrom: "7", prepare: []
+      }
+    };
+
+    const palette = ["#f4d2bd", "#cee2e9", "#d9d1ec", "#d7e5d4", "#edd3dc"];
+    const dates = ["4", "5", "6", "7", "8"];
+    let selectedDate = localStorage.getItem("missionDate") || "4";
+    let selectedStudent = localStorage.getItem("missionStudent") || "all";
+
+    const dateTabs = document.getElementById("dateTabs");
+    const select = document.getElementById("studentSelect");
+
+    dates.forEach(date => {
+      const button = document.createElement("button");
+      button.className = "date-tab";
+      button.type = "button";
+      button.dataset.date = date;
+      button.innerHTML = `${date}<small>NOV</small>`;
+      button.addEventListener("click", () => { selectedDate = date; localStorage.setItem("missionDate", date); render(); });
+      dateTabs.appendChild(button);
+    });
+
+    if ([...select.options].some(option => option.value === selectedStudent)) select.value = selectedStudent;
+    select.addEventListener("change", event => {
+      selectedStudent = event.target.value;
+      localStorage.setItem("missionStudent", selectedStudent);
+      render();
+    });
+
+    function cardHTML(item, index) {
+      const mine = selectedStudent !== "all" && item.team.includes(selectedStudent);
+      const dimmed = selectedStudent !== "all" && !mine;
+      const roles = item.team.map(person => `
+        <div class="role ${person === selectedStudent ? "yours" : ""}">
+          <strong>${person}${person === selectedStudent ? " - your part" : ""}</strong>
+          ${item.roles[person]}
+        </div>`).join("");
+      return `<article class="mission-card ${mine ? "mine" : ""} ${dimmed ? "dimmed" : ""}" style="--accent:${palette[index % palette.length]}">
+        <div class="card-top"><span class="team">${item.team.join(" + ")}</span>${mine ? '<span class="mine-badge">This is yours</span>' : ""}</div>
+        <h3>${item.topic}</h3><div class="roles">${roles}</div>
+      </article>`;
+    }
+
+    function renderCards(targetId, sectionId, items, emptyText) {
+      const section = document.getElementById(sectionId);
+      const target = document.getElementById(targetId);
+      if (!items.length) {
+        target.innerHTML = `<div class="empty-state">${emptyText}</div>`;
+        target.className = "cards";
+      } else {
+        const sorted = selectedStudent === "all" ? items : [...items].sort((a,b) => Number(b.team.includes(selectedStudent)) - Number(a.team.includes(selectedStudent)));
+        target.innerHTML = sorted.map(cardHTML).join("");
+      }
+      section.classList.toggle("hidden", !items.length && selectedDate === "4" && sectionId === "presentSection");
+    }
+
+    function render() {
+      const day = missions[selectedDate];
+      document.getElementById("dayTitle").textContent = day.title;
+      document.getElementById("daySummary").textContent = day.summary;
+      document.getElementById("dayPill").textContent = day.pill;
+      [...dateTabs.children].forEach(btn => btn.classList.toggle("active", btn.dataset.date === selectedDate));
+      const present = day.presentFrom ? missions[day.presentFrom].prepare : (day.present || []);
+      renderCards("presentCards", "presentSection", present, "No presentation today. Use this time to prepare calmly.");
+      renderCards("prepareCards", "prepareSection", day.prepare, "No new story to prepare. You are done - enjoy the day.");
+    }
+
+    const vocabulary = {
+      "Eat & Order": {
+        description: "Useful English for cafes, restaurants and shared meals.", color: "#f4d2bd",
+        Intermediate: [
+          ["I'd like...", "Use this to order directly and politely.", "I'd like a cappuccino and the cheese pastry, please."],
+          ["Could I have...", "Use this for an order or a small request.", "Could I have some water without ice, please?"],
+          ["What do you recommend?", "Use this when you want the staff to help you choose.", "What do you recommend for someone who likes mild food?"],
+          ["Is this dish spicy?", "Use this before ordering when spice level matters.", "Is this dish spicy, or is it quite mild?"],
+          ["Does this contain...?", "Use this to check an ingredient or allergen.", "Does this contain nuts or sesame?"],
+          ["Could we have the bill, please?", "Use this when the group is ready to leave.", "Everything was great. Could we have the bill, please?"],
+          ["Can I pay by card?", "Use this before paying in a cafe or restaurant.", "Can I pay by card, or do you only accept cash?"],
+          ["Could I have this without...?", "Use this to make a simple change to your order.", "Could I have this without onions, please?"]
+        ],
+        Advanced: [
+          ["I'm torn between...", "Use this when you cannot decide between two options.", "I'm torn between the khinkali and the mushroom dish."],
+          ["What would you say is the house speciality?", "Use this to ask for the restaurant's signature dish.", "What would you say is the house speciality here?"],
+          ["Could you walk me through the ingredients?", "Use this when a dish is unfamiliar or complex.", "Could you walk me through the ingredients in this sauce?"],
+          ["Would it be possible to make it less spicy?", "Use this for a polite modification request.", "Would it be possible to make it less spicy without changing the dish too much?"],
+          ["I have a mild allergy to...", "Use this to explain an allergy clearly and calmly.", "I have a mild allergy to walnuts, so I need to avoid them."],
+          ["We'd like to split the bill evenly.", "Use this when everyone is paying the same share.", "We'd like to split the bill evenly between eight people."],
+          ["The flavours complement each other really well.", "Use this to give specific positive feedback.", "The herbs and cheese complement each other really well."],
+          ["Everything was delicious, especially...", "Use this to thank the staff with a specific compliment.", "Everything was delicious, especially the aubergine rolls."]
+        ]
+      },
+      "Shop & Ask": {
+        description: "Useful English for markets, souvenir shops and everyday purchases.", color: "#edd3dc",
+        Intermediate: [
+          ["How much is this?", "Use this to ask for the price of one item.", "How much is this little enamel pin?"],
+          ["Is there a smaller size?", "Use this when the item does not fit.", "I like this jacket. Is there a smaller size?"],
+          ["Do you have this in another colour?", "Use this to ask about other options.", "Do you have this notebook in another colour?"],
+          ["Can I pay by card?", "Use this before paying, especially at a market.", "Can I pay by card, or would you prefer cash?"],
+          ["I'm just looking, thank you.", "Use this when you want to browse without pressure.", "I'm just looking, thank you. I'll let you know if I need help."],
+          ["I'll think about it.", "Use this to leave politely without buying.", "It's very nice, but I'll think about it. Thank you."],
+          ["Where was this made?", "Use this to learn more about a local object.", "Where was this ceramic cup made?"],
+          ["Could I see that one, please?", "Use this when an item is out of reach or behind a counter.", "Could I see that blue one, please?"]
+        ],
+        Advanced: [
+          ["Could you tell me a little about its origin?", "Use this when an object may have a story.", "Could you tell me a little about the origin of this photograph?"],
+          ["Is this handmade or mass-produced?", "Use this to understand how an item was created.", "Is this bracelet handmade or mass-produced?"],
+          ["I'm looking for something locally made.", "Use this to explain what kind of souvenir you want.", "I'm looking for something locally made that is easy to carry."],
+          ["Would you be able to offer a better price?", "Use this gently where bargaining is appropriate.", "If I take both pieces, would you be able to offer a better price?"],
+          ["It's lovely, but it is outside my budget.", "Use this to decline without criticising the item.", "It's lovely, but it is outside my budget today."],
+          ["I'm comparing a few options before I decide.", "Use this when you need more time to choose.", "I'm comparing a few options before I decide, but I may come back."],
+          ["The craftsmanship really stands out.", "Use this to compliment the quality of an object.", "The craftsmanship really stands out, especially the small details."],
+          ["I'll pass for now, but thank you for your time.", "Use this for a warm and definite refusal.", "I'll pass for now, but thank you for your time and the explanation."]
+        ]
+      },
+      "Move & Explore": {
+        description: "Useful English for directions, transport, routes and city discoveries.", color: "#cee2e9",
+        Intermediate: [
+          ["Could you show me on the map?", "Use this when spoken directions are difficult to follow.", "Could you show me the entrance on the map?"],
+          ["Is it far from here?", "Use this to understand the distance.", "Is the Botanical Garden far from here?"],
+          ["Which way is...?", "Use this for a quick direction check.", "Which way is Freedom Square?"],
+          ["How long does it take on foot?", "Use this to decide whether to walk.", "How long does it take on foot from here?"],
+          ["Does this bus go to...?", "Use this before boarding public transport.", "Does this bus go to the old town?"],
+          ["Where is the nearest metro station?", "Use this when you need the closest station.", "Where is the nearest metro station from here?"],
+          ["We're trying to get to...", "Use this to explain your destination.", "We're trying to get to the Dry Bridge Market."],
+          ["Could you take a photo of us?", "Use this to ask a passer-by for a group photo.", "Could you take a photo of us with the bridge in the background?"]
+        ],
+        Advanced: [
+          ["We seem to have taken a wrong turn.", "Use this when you realise the route is incorrect.", "We seem to have taken a wrong turn after the square."],
+          ["Could you point us in the right direction?", "Use this for help without asking for every step.", "We're heading to Metekhi. Could you point us in the right direction?"],
+          ["Is this route suitable for walking?", "Use this to check safety, distance or steepness.", "Is this route suitable for walking in the evening?"],
+          ["Would you recommend taking the cable car or walking up?", "Use this when comparing two routes.", "Would you recommend taking the cable car or walking up to Narikala?"],
+          ["We're looking for the most scenic route.", "Use this when the experience matters more than speed.", "We're looking for the most scenic route back to the old town."],
+          ["According to the map...", "Use this to explain what your phone is showing.", "According to the map, the entrance should be around the corner."],
+          ["The entrance appears to be on the other side.", "Use this to suggest a solution to the group.", "The entrance appears to be on the other side of the building."],
+          ["This viewpoint is well worth the climb.", "Use this to describe a rewarding route.", "The path is steep, but this viewpoint is well worth the climb."]
+        ]
+      },
+      "Connect & Speak": {
+        description: "Useful English for meeting travellers, continuing small talk and sharing opinions.", color: "#d9d1ec",
+        Intermediate: [
+          ["Hi, I'm...", "Use this simple opening to introduce yourself.", "Hi, I'm Katya. I'm visiting Tbilisi with my English group."],
+          ["Where are you from?", "Use this after introducing yourself.", "I'm from Russia. Where are you from?"],
+          ["Is this your first time in Tbilisi?", "Use this to open a travel conversation.", "Is this your first time in Tbilisi, or have you been here before?"],
+          ["What has been your favourite place so far?", "Use this to invite a real opinion.", "What has been your favourite place in Georgia so far?"],
+          ["That's really interesting.", "Use this to show that you are listening.", "That's really interesting. I didn't know that before."],
+          ["I love your...", "Use this for a genuine, specific compliment.", "I love your jacket. The colour really suits you."],
+          ["How did you hear about this place?", "Use this to continue a conversation naturally.", "How did you hear about this market?"],
+          ["It was lovely talking to you.", "Use this to end the conversation warmly.", "It was lovely talking to you. Enjoy the rest of your trip."]
+        ],
+        Advanced: [
+          ["What brought you to Tbilisi?", "Use this for a more open and personal conversation.", "What brought you to Tbilisi at this time of year?"],
+          ["What stood out to you most?", "Use this to move beyond basic likes and dislikes.", "What stood out to you most about the old town?"],
+          ["I can see why you feel that way.", "Use this to acknowledge an opinion before responding.", "I can see why you feel that way; the area is much busier at night."],
+          ["That reminds me of...", "Use this to connect their story with your own experience.", "That reminds me of a small town I visited last year."],
+          ["I had a very different impression at first.", "Use this to introduce a contrasting experience politely.", "I had a very different impression at first, but the city grew on me."],
+          ["From my perspective...", "Use this to express an opinion without sounding absolute.", "From my perspective, the mix of old and new makes the city special."],
+          ["You've given me a new way to look at it.", "Use this when someone's idea genuinely changes your view.", "You've given me a new way to look at modern architecture."],
+          ["I really enjoyed hearing your point of view.", "Use this to close a deeper conversation warmly.", "I really enjoyed hearing your point of view on the city."]
+        ]
+      },
+      "Everyday Courage": {
+        description: "Useful English for mistakes, missing words, clarification and asking for help.", color: "#d7e5d4",
+        Intermediate: [
+          ["Could you repeat that, please?", "Use this when you did not hear or understand.", "Could you repeat the last part, please?"],
+          ["Could you speak more slowly?", "Use this when the person is speaking too fast.", "Could you speak a little more slowly, please?"],
+          ["I don't understand this word.", "Use this to identify exactly what is difficult.", "I understand the sentence, but I don't understand this word."],
+          ["Let me try again.", "Use this after a mistake or an unclear sentence.", "That wasn't clear. Let me try again."],
+          ["I mean...", "Use this to correct or clarify your idea.", "I mean the building next to the bridge, not the museum."],
+          ["I don't know the word, but...", "Use this before explaining the idea another way.", "I don't know the word, but it's a place where people sell old things."],
+          ["Could you help me, please?", "Use this for a genuine practical problem.", "Could you help me, please? I can't find the entrance."],
+          ["Thank you for being patient.", "Use this when someone gives you time to explain.", "Thank you for being patient while I found the right words."]
+        ],
+        Advanced: [
+          ["Let me rephrase that.", "Use this when your first explanation did not work.", "Let me rephrase that. The monument represents the country's history."],
+          ["I may not have explained that clearly.", "Use this to repair confusion without apologising too much.", "I may not have explained that clearly. I meant the lower entrance."],
+          ["What I was trying to say was...", "Use this to return to your original point.", "What I was trying to say was that the area has changed dramatically."],
+          ["I lost my train of thought for a moment.", "Use this when your mind briefly goes blank.", "I lost my train of thought for a moment, but the main point is..."],
+          ["Give me a second to put that into words.", "Use this to create thinking time while keeping your turn.", "Give me a second to put that into words. It's a very specific feeling."],
+          ["I understand the general idea, but I missed one detail.", "Use this to ask for targeted clarification.", "I understand the general idea, but I missed one detail about the date."],
+          ["I'd rather keep speaking than search for the perfect word.", "Use this as a personal reminder when perfection slows you down.", "I'd rather keep speaking than search for the perfect word every time."],
+          ["I made a mistake, but the conversation still worked.", "Use this to reflect on successful communication.", "I used the wrong tense, but the conversation still worked."]
+        ]
+      }
+    };
+
+    const passportSections = [
+      {
+        title: "Eat & Order", color: "#d49b7c", soft: "#f4d2bd",
+        actions: [
+          "ordered food or a drink by myself",
+          "asked for a recommendation",
+          "asked about ingredients, size or spice level",
+          "asked for the bill",
+          "asked if I could pay by card or cash"
+        ]
+      },
+      {
+        title: "Shop & Ask", color: "#9c86ad", soft: "#e4d8ed",
+        actions: [
+          "asked the price of something",
+          "asked what an object was or where it was made",
+          "asked for another size, colour or option",
+          "asked about opening or closing time",
+          "politely decided not to buy something"
+        ]
+      },
+      {
+        title: "Move & Explore", color: "#7597a6", soft: "#cee2e9",
+        actions: [
+          "asked someone to take a photo of me or the group",
+          "asked for directions when I really needed them",
+          "asked the name of a building or place",
+          "asked what place nearby someone would recommend",
+          "checked where or when something started"
+        ]
+      },
+      {
+        title: "Connect & Speak", color: "#c18aa0", soft: "#edd3dc",
+        actions: [
+          "started a short conversation with someone new",
+          "introduced myself and learned someone's name",
+          "gave a genuine compliment and continued the conversation",
+          "asked at least one follow-up question",
+          "thanked someone with more than just 'thank you'"
+        ]
+      },
+      {
+        title: "Everyday Courage", color: "#789475", soft: "#d7e5d4",
+        actions: [
+          "asked someone to repeat or speak more slowly",
+          "explained a word or idea in another way",
+          "asked for help when I genuinely needed it",
+          "used a new word or phrase in a real conversation",
+          "made a mistake and kept speaking"
+        ]
+      }
+    ];
+    const passportDates = ["NOV 5", "NOV 6", "NOV 7", "NOV 8", "NOV 9"];
+    const PASSPORT_KEY = "braveryPassportProgressV1";
+    let passportProgress = {};
+    try { passportProgress = JSON.parse(localStorage.getItem(PASSPORT_KEY)) || {}; } catch { passportProgress = {}; }
+
+    function progressKey(sectionIndex, actionIndex, dateIndex) {
+      return `${sectionIndex}-${actionIndex}-${dateIndex}`;
+    }
+
+    function updateProgressSummary() {
+      let completedActions = 0;
+      let braveMoments = 0;
+      let categoriesExplored = 0;
+      passportSections.forEach((section, sectionIndex) => {
+        let categoryActions = 0;
+        section.actions.forEach((_, actionIndex) => {
+          const actionDates = passportDates.map((__, dateIndex) => Boolean(passportProgress[progressKey(sectionIndex, actionIndex, dateIndex)]));
+          braveMoments += actionDates.filter(Boolean).length;
+          if (actionDates.some(Boolean)) {
+            completedActions += 1;
+            categoryActions += 1;
+          }
+        });
+        if (categoryActions > 0) categoriesExplored += 1;
+        const count = document.querySelector(`[data-passport-count="${sectionIndex}"]`);
+        if (count) count.textContent = `${categoryActions}/5 actions`;
+      });
+      const percent = Math.round((completedActions / 25) * 100);
+      document.getElementById("progressPercent").textContent = `${percent}%`;
+      document.getElementById("progressActions").textContent = `${completedActions} of 25 actions completed`;
+      document.getElementById("progressFill").style.width = `${percent}%`;
+      document.getElementById("braveMoments").textContent = braveMoments;
+      document.getElementById("categoriesComplete").textContent = `${categoriesExplored}/5`;
+    }
+
+    function renderProgress() {
+      const container = document.getElementById("passportGroups");
+      container.innerHTML = passportSections.map((section, sectionIndex) => `
+        <section class="passport-group" style="--passport-accent:${section.color};--passport-soft:${section.soft}">
+          <div class="passport-head">
+            <div class="passport-title"><span class="passport-dot"></span><h2>${section.title}</h2></div>
+            <span class="passport-count" data-passport-count="${sectionIndex}">0/5 actions</span>
+          </div>
+          <div class="passport-actions">
+            ${section.actions.map((action, actionIndex) => `
+              <div class="passport-action">
+                <div class="action-copy">${action}</div>
+                <div class="date-checks">
+                  ${passportDates.map((date, dateIndex) => {
+                    const key = progressKey(sectionIndex, actionIndex, dateIndex);
+                    return `<label class="date-check"><input type="checkbox" data-progress-key="${key}" ${passportProgress[key] ? "checked" : ""} aria-label="${action}, ${date}"><span class="date-box">${date}</span></label>`;
+                  }).join("")}
+                </div>
+              </div>`).join("")}
+          </div>
+        </section>`).join("");
+
+      container.querySelectorAll("[data-progress-key]").forEach(input => {
+        input.addEventListener("change", () => {
+          passportProgress[input.dataset.progressKey] = input.checked;
+          localStorage.setItem(PASSPORT_KEY, JSON.stringify(passportProgress));
+          updateProgressSummary();
+        });
+      });
+      updateProgressSummary();
+    }
+
+    let selectedCategory = localStorage.getItem("vocabCategory") || "Eat & Order";
+    let selectedLevel = localStorage.getItem("vocabLevel") || "Intermediate";
+    const categoryTabs = document.getElementById("categoryTabs");
+    const vocabGrid = document.getElementById("vocabGrid");
+    const categoryNames = Object.keys(vocabulary);
+
+    categoryNames.forEach(category => {
+      const button = document.createElement("button");
+      button.className = "category-tab";
+      button.type = "button";
+      button.dataset.category = category;
+      button.textContent = category;
+      button.addEventListener("click", () => {
+        selectedCategory = category;
+        localStorage.setItem("vocabCategory", category);
+        renderVocabulary();
+      });
+      categoryTabs.appendChild(button);
+    });
+
+    document.querySelectorAll(".level-tab").forEach(button => {
+      button.addEventListener("click", () => {
+        selectedLevel = button.dataset.level;
+        localStorage.setItem("vocabLevel", selectedLevel);
+        renderVocabulary();
+      });
+    });
+
+    function renderVocabulary() {
+      if (!vocabulary[selectedCategory]) selectedCategory = "Eat & Order";
+      const category = vocabulary[selectedCategory];
+      const items = category[selectedLevel];
+      document.getElementById("vocabTitle").textContent = selectedCategory;
+      document.getElementById("vocabSubtitle").textContent = category.description;
+      document.getElementById("vocabCount").textContent = `${items.length} phrases`;
+      document.querySelectorAll(".category-tab").forEach(button => button.classList.toggle("active", button.dataset.category === selectedCategory));
+      document.querySelectorAll(".level-tab").forEach(button => button.classList.toggle("active", button.dataset.level === selectedLevel));
+      vocabGrid.innerHTML = items.map(([phrase, use, example], index) => `
+        <article class="vocab-card" style="--card-accent:${index % 2 ? category.color : "#ffffff"}">
+          <div class="vocab-meta"><span>${selectedCategory}</span><span>${selectedLevel}</span></div>
+          <h3>${phrase}</h3>
+          <p class="vocab-use">${use}</p>
+          <div class="example"><strong>Example</strong>${example}</div>
+        </article>`).join("");
+    }
+
+    function setSiteView(view, scrollToTop = false) {
+      const vocabularyOpen = view === "vocabulary";
+      const progressOpen = view === "progress";
+      document.querySelectorAll(".missions-only").forEach(element => element.classList.toggle("hidden", vocabularyOpen || progressOpen));
+      document.getElementById("vocabularyView").classList.toggle("hidden", !vocabularyOpen);
+      document.getElementById("progressView").classList.toggle("hidden", !progressOpen);
+      document.querySelectorAll(".view-tab").forEach(button => button.classList.toggle("active", button.dataset.view === view));
+      history.replaceState(null, "", `#${view}`);
+      if (scrollToTop) window.scrollTo({top: 0, behavior: "smooth"});
+    }
+
+    document.querySelectorAll(".view-tab").forEach(button => {
+      button.addEventListener("click", () => setSiteView(button.dataset.view, true));
+    });
+
+    const phrases = [
+      ["a breathtaking view", "захватывающий вид", "Views & scenery"],
+      ["a panoramic view", "панорамный вид", "Views & scenery"],
+      ["stunning scenery", "потрясающий пейзаж", "Views & scenery"],
+      ["a picturesque setting", "живописное окружение", "Views & scenery"],
+      ["a hidden gem", "скрытая жемчужина", "Views & scenery"],
+      ["a scenic route", "живописный маршрут", "Views & scenery"],
+      ["a hilltop location", "расположение на вершине холма", "Views & scenery"],
+      ["winding streets", "извилистые улицы", "Views & scenery"],
+      ["cobbled streets", "мощёные улицы", "Views & scenery"],
+      ["peaceful surroundings", "спокойная обстановка вокруг", "Views & scenery"],
+      ["lush greenery", "пышная зелень", "Views & scenery"],
+      ["a dramatic skyline", "выразительный силуэт города", "Views & scenery"],
+      ["the cityscape stretches into the distance", "городской пейзаж простирается вдаль", "Views & scenery"],
+      ["it overlooks the city", "отсюда открывается вид на город", "Views & scenery"],
+      ["surrounded by mountains", "окружённый горами", "Views & scenery"],
+      ["remarkable natural beauty", "удивительная природная красота", "Views & scenery"],
+      ["a perfect vantage point", "идеальная обзорная точка", "Views & scenery"],
+      ["an impressive backdrop", "впечатляющий фон", "Views & scenery"],
+      ["at first glance", "на первый взгляд", "Views & scenery"],
+      ["as far as the eye can see", "насколько хватает глаз", "Views & scenery"],
+
+      ["take a stroll", "прогуляться", "Walking & exploring"],
+      ["wander around", "бродить, гулять без точного маршрута", "Walking & exploring"],
+      ["explore the area on foot", "исследовать район пешком", "Walking & exploring"],
+      ["walk along the river", "пройтись вдоль реки", "Walking & exploring"],
+      ["make our way through the old town", "пройти через старый город", "Walking & exploring"],
+      ["head towards the square", "направиться к площади", "Walking & exploring"],
+      ["pass by an old building", "пройти мимо старого здания", "Walking & exploring"],
+      ["stop to admire the view", "остановиться, чтобы полюбоваться видом", "Walking & exploring"],
+      ["look around the neighbourhood", "осмотреть район", "Walking & exploring"],
+      ["take in the surroundings", "впитать атмосферу и рассмотреть всё вокруг", "Walking & exploring"],
+      ["discover hidden corners", "открыть потаённые уголки", "Walking & exploring"],
+      ["get a closer look", "рассмотреть поближе", "Walking & exploring"],
+      ["enjoy the atmosphere", "насладиться атмосферой", "Walking & exploring"],
+      ["follow the narrow streets", "идти по узким улицам", "Walking & exploring"],
+      ["cross the bridge", "перейти мост", "Walking & exploring"],
+
+      ["an architectural landmark", "архитектурная достопримечательность", "Architecture"],
+      ["a striking facade", "выразительный фасад", "Architecture"],
+      ["intricate details", "замысловатые детали", "Architecture"],
+      ["traditional wooden balconies", "традиционные деревянные балконы", "Architecture"],
+      ["ancient stone walls", "древние каменные стены", "Architecture"],
+      ["a solid stone structure", "прочная каменная постройка", "Architecture"],
+      ["a bold modern design", "смелый современный дизайн", "Architecture"],
+      ["a distinctive style", "узнаваемый стиль", "Architecture"],
+      ["a blend of old and new", "сочетание старого и нового", "Architecture"],
+      ["remarkably well-preserved", "удивительно хорошо сохранившийся", "Architecture"],
+      ["carefully restored", "бережно отреставрированный", "Architecture"],
+      ["built in the nineteenth century", "построенный в девятнадцатом веке", "Architecture"],
+      ["dates back to ancient times", "восходит к древним временам", "Architecture"],
+      ["stands out from its surroundings", "выделяется на фоне окружения", "Architecture"],
+      ["dominates the skyline", "доминирует над городским силуэтом", "Architecture"],
+      ["a symbol of the city", "символ города", "Architecture"],
+      ["one notable feature is...", "одна примечательная особенность — это...", "Architecture"],
+      ["an impressive monument", "впечатляющий памятник", "Architecture"],
+      ["a grand entrance", "величественный вход", "Architecture"],
+      ["an unusual shape", "необычная форма", "Architecture"],
+
+      ["cultural heritage", "культурное наследие", "History & heritage"],
+      ["historical significance", "историческое значение", "History & heritage"],
+      ["a place with a rich history", "место с богатой историей", "History & heritage"],
+      ["an important turning point", "важный поворотный момент", "History & heritage"],
+      ["played a key role in...", "сыграл ключевую роль в...", "History & heritage"],
+      ["closely connected with...", "тесно связан с...", "History & heritage"],
+      ["named after...", "назван в честь...", "History & heritage"],
+      ["built in honour of...", "построен в честь...", "History & heritage"],
+      ["founded in...", "основан в...", "History & heritage"],
+      ["originally used as...", "изначально использовался как...", "History & heritage"],
+      ["over the centuries", "на протяжении веков", "History & heritage"],
+      ["has witnessed many changes", "стал свидетелем множества перемен", "History & heritage"],
+      ["survived several periods of destruction", "пережил несколько периодов разрушения", "History & heritage"],
+      ["was later transformed into...", "позже был превращён в...", "History & heritage"],
+      ["became known for...", "стал известен благодаря...", "History & heritage"],
+      ["a well-known local legend", "известная местная легенда", "History & heritage"],
+      ["according to tradition", "согласно традиции", "History & heritage"],
+      ["a reminder of the past", "напоминание о прошлом", "History & heritage"],
+      ["reflects the city's identity", "отражает самобытность города", "History & heritage"],
+      ["a strong sense of national identity", "сильное чувство национальной идентичности", "History & heritage"],
+      ["a place of memory", "место памяти", "History & heritage"],
+      ["passed down through generations", "передаваемый из поколения в поколение", "History & heritage"],
+      ["a living piece of history", "живая часть истории", "History & heritage"],
+      ["from ancient times to the present day", "с древних времён до наших дней", "History & heritage"],
+      ["during this period", "в этот период", "History & heritage"],
+
+      ["To begin with...", "для начала...", "Story structure"],
+      ["First of all...", "прежде всего...", "Story structure"],
+      ["One detail worth noticing is...", "одна деталь, на которую стоит обратить внимание...", "Story structure"],
+      ["What makes this place special is...", "особенным это место делает...", "Story structure"],
+      ["The most interesting fact is...", "самый интересный факт заключается в том, что...", "Story structure"],
+      ["Another important detail is...", "ещё одна важная деталь...", "Story structure"],
+      ["It is also worth mentioning that...", "также стоит упомянуть, что...", "Story structure"],
+      ["Surprisingly...", "удивительно, но...", "Story structure"],
+      ["In contrast...", "в отличие от этого...", "Story structure"],
+      ["Unlike many other places...", "в отличие от многих других мест...", "Story structure"],
+      ["While the outside looks..., the inside...", "в то время как снаружи..., внутри...", "Story structure"],
+      ["At that time...", "в то время...", "Story structure"],
+      ["Today, however...", "однако сегодня...", "Story structure"],
+      ["Because of this...", "из-за этого...", "Story structure"],
+      ["As a result...", "в результате...", "Story structure"],
+      ["Over time...", "со временем...", "Story structure"],
+      ["In other words...", "другими словами...", "Story structure"],
+      ["In my opinion...", "по моему мнению...", "Story structure"],
+      ["For me, the most memorable part is...", "для меня самая запоминающаяся часть — это...", "Story structure"],
+      ["To sum up...", "подводя итог...", "Story structure"],
+
+      ["a warm and welcoming atmosphere", "тёплая и гостеприимная атмосфера", "Atmosphere & culture"],
+      ["a lively atmosphere", "оживлённая атмосфера", "Atmosphere & culture"],
+      ["a peaceful atmosphere", "спокойная атмосфера", "Atmosphere & culture"],
+      ["an authentic feel", "ощущение подлинности", "Atmosphere & culture"],
+      ["strong local character", "ярко выраженный местный колорит", "Atmosphere & culture"],
+      ["a glimpse of everyday life", "возможность увидеть повседневную жизнь", "Atmosphere & culture"],
+      ["a popular meeting place", "популярное место встреч", "Atmosphere & culture"],
+      ["attracts both locals and visitors", "привлекает и местных жителей, и гостей", "Atmosphere & culture"],
+      ["traditional craftsmanship", "традиционное ремесленное мастерство", "Atmosphere & culture"],
+      ["deep-rooted local traditions", "глубоко укоренившиеся местные традиции", "Atmosphere & culture"],
+      ["an important cultural centre", "важный культурный центр", "Atmosphere & culture"],
+      ["a strong sense of community", "сильное чувство общности", "Atmosphere & culture"],
+      ["tells the story of the city", "рассказывает историю города", "Atmosphere & culture"],
+      ["brings history to life", "оживляет историю", "Atmosphere & culture"],
+      ["well worth visiting", "определённо стоит посетить", "Atmosphere & culture"],
+      ["a truly memorable experience", "по-настоящему запоминающийся опыт", "Atmosphere & culture"],
+      ["full of character", "с ярким характером и колоритом", "Atmosphere & culture"],
+      ["has a charm of its own", "обладает особым очарованием", "Atmosphere & culture"],
+      ["feels like stepping back in time", "кажется, будто переносишься в прошлое", "Atmosphere & culture"],
+      ["leaves a lasting impression", "оставляет сильное и долгое впечатление", "Atmosphere & culture"]
+    ];
+
+    const DECK_KEY = "storyPhraseDeckV2";
+    function createDeck() {
+      const deck = phrases.map((_, index) => index);
+      for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+      }
+      return deck;
+    }
+    function loadDeck() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(DECK_KEY));
+        const valid = Array.isArray(saved) && new Set(saved).size === saved.length && saved.every(index => Number.isInteger(index) && index >= 0 && index < phrases.length);
+        return valid && saved.length ? saved : createDeck();
+      } catch {
+        return createDeck();
+      }
+    }
+
+    let phraseDeck = loadDeck();
+    let rotation = 0;
+    const wheel = document.getElementById("wheel");
+    const spinButton = document.getElementById("spinButton");
+    const phraseCard = document.getElementById("phraseCard");
+    spinButton.addEventListener("click", () => {
+      if (!phraseDeck.length) phraseDeck = createDeck();
+      const next = phraseDeck.pop();
+      localStorage.setItem(DECK_KEY, JSON.stringify(phraseDeck));
+      rotation += 720 + Math.floor(Math.random() * 360);
+      wheel.style.transform = `rotate(${rotation}deg)`;
+      spinButton.disabled = true;
+      spinButton.textContent = "Spinning...";
+      setTimeout(() => {
+        const remaining = phraseDeck.length ? `${phraseDeck.length} expressions left before the set refreshes` : "Full set completed. The next spin starts a fresh set";
+        phraseCard.innerHTML = `<span class="phrase-label">${phrases[next][2]}</span><p class="phrase">${phrases[next][0]}</p><p class="phrase-translation">${phrases[next][1]}</p><p class="phrase-use">${remaining}</p>`;
+        spinButton.disabled = false;
+        spinButton.textContent = "Spin again";
+      }, 900);
+    });
+
+    render();
+    renderVocabulary();
+    renderProgress();
+    const initialView = ["vocabulary", "progress"].includes(location.hash.slice(1)) ? location.hash.slice(1) : "missions";
+    setSiteView(initialView);
+  </script>
+</body>
+</html>
+
